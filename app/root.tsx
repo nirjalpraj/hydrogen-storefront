@@ -1,18 +1,21 @@
-import {type LinksFunction, type LoaderArgs} from '@shopify/remix-oxygen';
 import {
   Links,
+  LiveReload,
   Meta,
   Outlet,
   Scripts,
-  LiveReload,
   ScrollRestoration,
   useLoaderData,
   type ShouldRevalidateFunction,
 } from '@remix-run/react';
-import type {Shop} from '@shopify/hydrogen/storefront-api-types';
-import appStyles from './styles/app.css';
-import favicon from '../public/favicon.svg';
 import {useNonce} from '@shopify/hydrogen';
+import type {Shop} from '@shopify/hydrogen/storefront-api-types';
+import {type LinksFunction, type LoaderArgs} from '@shopify/remix-oxygen';
+import favicon from '../public/favicon.svg';
+import {Layout} from './components/Layout';
+import appStyles from './styles/app.css';
+
+import {Seo} from '@shopify/hydrogen';
 
 // This is important to avoid re-fetching root queries on sub-navigations
 export const shouldRevalidate: ShouldRevalidateFunction = ({
@@ -64,13 +67,14 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <Seo />
         <Meta />
         <Links />
       </head>
       <body>
-        <h1>Hello, {name}</h1>
-        <p>This is a custom storefront powered by Hydrogen</p>
-        <Outlet />
+        <Layout title={name}>
+          <Outlet />
+        </Layout>
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
         <LiveReload nonce={nonce} />

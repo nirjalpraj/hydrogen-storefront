@@ -5,7 +5,7 @@
 // Enhance TypeScript's built-in typings.
 import '@total-typescript/ts-reset';
 
-import type {Storefront} from '@shopify/hydrogen';
+import type {HydrogenCart, Storefront} from '@shopify/hydrogen';
 import type {HydrogenSession} from './server';
 
 declare global {
@@ -34,6 +34,7 @@ declare module '@shopify/remix-oxygen' {
     env: Env;
     storefront: Storefront;
     session: HydrogenSession;
+    cart: HydrogenCart;
     waitUntil: ExecutionContext['waitUntil'];
   }
 }
